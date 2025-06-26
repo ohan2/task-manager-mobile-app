@@ -1,0 +1,75 @@
+<!-- src/app/components/task-form/task-form.component.html -->
+
+<ion-header>
+  <!-- ✅ ACTION: Add color="primary" to the toolbar -->
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="onCancel()">Cancel</ion-button>
+    </ion-buttons>
+    
+    <!-- Dynamically set the title based on whether we are editing or adding -->
+    <ion-title>{{ task?.id ? 'Edit Task' : 'Add Task' }}</ion-title>
+    
+    <ion-buttons slot="end">
+      <ion-button (click)="onConfirm()" [strong]="true">Save</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- ... rest of the file is unchanged ... -->
+
+
+<ion-content class="ion-padding">
+  <!-- Bind the entire form to our FormGroup in the .ts file -->
+  <form [formGroup]="form">
+
+    <ion-item>
+      <ion-label position="floating">Title</ion-label>
+      <ion-input formControlName="title" type="text" required></ion-input>
+    </ion-item>
+    <!-- Simple validation message -->
+    <div *ngIf="form.get('title')?.invalid && form.get('title')?.touched" class="validation-error">
+      Title is required.
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-textarea formControlName="description" [autoGrow]="true"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Due Date</ion-label>
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
+    </ion-item>
+
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime id="datetime" formControlName="dueDate" presentation="date-time"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+
+    <ion-item>
+      <ion-label>Priority</ion-label>
+      <ion-select formControlName="priority" interface="popover">
+        <ion-select-option value="low">Low</ion-select-option>
+        <ion-select-option value="medium">Medium</ion-select-option>
+        <ion-select-option value="high">High</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Label (e.g., Work, Personal)</ion-label>
+      <ion-input formControlName="label" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Progress</ion-label>
+      <ion-select formControlName="progress" interface="popover">
+        <ion-select-option value="not started">Not Started</ion-select-option>
+        <ion-select-option value="in progress">In Progress</ion-select-option>
+        <ion-select-option value="complete">Complete</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+  </form>
+</ion-content>

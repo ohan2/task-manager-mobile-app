@@ -1,0 +1,40 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Setup Project Structure",
+      "description": "Initialize Ionic project and setup folder structure.",
+      "dueDate": "2025-06-25T10:00:00Z",
+      "priority": "high",
+      "label": "Development",
+      "progress": "complete"
+    },
+    {
+      "id": "2",
+      "title": "Design UI Mockups",
+      "description": "Create mockups for the main screen and task details.",
+      "dueDate": "2025-06-07T14:14:00",
+      "priority": "medium",
+      "label": "Design",
+      "progress": "started"
+    },
+    {
+      "id": "3",
+      "title": "API Integration",
+      "description": "Connect to the backend services.",
+      "dueDate": "2025-07-01T12:00:00Z",
+      "priority": "high",
+      "label": "Development",
+      "progress": "not started"
+    },
+    {
+      "id": "4",
+      "title": "User Authentication",
+      "description": "Implement login and registration.",
+      "dueDate": "2024-01-10T18:00:00Z",
+      "priority": "low",
+      "label": "Backend",
+      "progress": "started"
+    }
+  ]
+}

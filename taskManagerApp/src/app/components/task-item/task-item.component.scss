@@ -1,0 +1,92 @@
+/* src/app/components/task-item/task-item.component.scss */
+
+/* Use the :host pseudo-selector to target the component's root element.
+   Our root element is now an <ion-card>. */
+:host {
+  display: block; // Ensures the component acts like a block element
+  width: 100%;
+}
+
+:host ion-card {
+  /* Add margin to create space between cards in the Kanban columns */
+  margin-inline: 4px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  transition: border-left-color 0.3s ease-in-out;
+}
+
+/* These priority classes now apply the border to the <ion-card> */
+.priority-high {
+  border-left: 5px solid var(--ion-color-danger);
+}
+
+.priority-medium {
+  border-left: 5px solid var(--ion-color-warning);
+}
+
+.priority-low {
+  border-left: 5px solid var(--ion-color-medium);
+}
+
+/* 
+  The .badge styles are no longer needed as we're not using that element. 
+  They have been removed. 
+*/
+
+/* Keep the styles for the meta container, they still work perfectly. */
+.meta-container {
+  display: flex;
+  align-items: center;
+  gap: 16px; 
+  margin-top: 8px;
+  margin-bottom: 8px; /* Added margin for spacing */
+}
+
+/* Styles for progress status text remain unchanged */
+.progress-status {
+  margin: 0;
+  font-size: 0.8em;
+  font-style: italic;
+  color: var(--ion-color-medium-shade);
+  text-transform: capitalize;
+}
+
+/* Chip styles remain unchanged */
+ion-chip {
+  height: 28px;
+  font-size: 0.8em;
+  --background: transparent;
+}
+
+/* New styles to position the delete button */
+.delete-button-container {
+  display: flex;
+  justify-content: flex-end; /* Pushes the button to the far right */
+}
+
+
+
+/* Styles for the container holding the icon and due date */
+.subtitle-container {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Adds a little space between the icon and the text */
+  margin-top: 4px;
+}
+
+/* Make our subtitle adapt to the flex container */
+.subtitle-container ion-card-subtitle {
+  margin: 0;
+  padding: 0;
+}
+
+/* Define the colors for our urgency states */
+.overdue-text {
+  color: var(--ion-color-danger);
+  font-weight: 600; /* Make it bolder */
+}
+
+.duesoon-text {
+  color: var(--ion-color-warning);
+  font-weight: 600; /* Make it bolder */
+}

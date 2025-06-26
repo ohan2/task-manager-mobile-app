@@ -1,0 +1,60 @@
+<!-- src/app/components/task-item/task-item.component.html -->
+
+<!-- The entire item is now a card. -->
+<!-- We apply the priority class directly to the card for the border effect. -->
+<!-- Tapping the card (but not its buttons) will trigger the edit action. -->
+<ion-card 
+  button="true"
+  (click)="edit.emit(task)"
+  [ngClass]="{
+    'priority-high': task.priority === 'high',
+    'priority-medium': task.priority === 'medium',
+    'priority-low': task.priority === 'low'
+  }"
+>
+  <ion-card-header>
+    <!-- The main title of the task -->
+    <ion-card-title>{{ task.title }}</ion-card-title>
+    
+    <div class="subtitle-container" *ngIf="task.dueDate">
+      <ion-icon 
+        *ngIf="urgency === 'overdue' || urgency === 'dueSoon'"
+        [name]="urgency === 'overdue' ? 'alert-circle-outline' : 'warning-outline'"
+        [color]="urgency === 'overdue' ? 'danger' : 'warning'">
+      </ion-icon>
+      
+      <ion-card-subtitle [ngClass]="{
+        'overdue-text': urgency === 'overdue',
+        'duesoon-text': urgency === 'dueSoon'
+      }">
+        Due: {{ task.dueDate | date: 'MMM d, y, h:mm a' }}
+      </ion-card-subtitle>
+    </div>
+  </ion-card-header>
+    
+  <ion-card-content>
+    <!-- Task description -->
+    <p>{{ task.description }}</p>
+
+    <!-- Meta-information container for chips and progress -->
+    <div class="meta-container">
+      <ion-chip *ngIf="task.label" outline="true">
+        <ion-icon name="pricetag-outline"></ion-icon>
+        <ion-label>{{ task.label }}</ion-label>
+      </ion-chip>
+
+      <p class="progress-status">{{ task.progress }}</p>
+    </div>
+
+    <!-- Container for the delete button, placed at the end -->
+    <div class="delete-button-container">
+      <ion-button 
+        fill="clear" 
+        color="danger" 
+        size="small" 
+        (click)="onDeleteClick($event)">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-card-content>
+</ion-card>

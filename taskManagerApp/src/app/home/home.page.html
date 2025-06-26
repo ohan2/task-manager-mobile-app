@@ -1,0 +1,110 @@
+<!-- src/app/home/home.page.html -->
+
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary" class="main-toolbar">
+    <ion-buttons slot="start">
+      <ion-title class="extra-bold-title">My Tasks</ion-title>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      <ion-img src="assets/Task Monkey Logo.png" class="toolbar-logo"></ion-img>
+    </ion-title>
+    <ion-buttons slot="end">
+      <!-- This button will call our new filter method -->
+      <ion-button (click)="openFilterMenu()">
+        <ion-icon slot="icon-only" name="filter-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ng-container *ngIf="activeFilter$ | async as filter">
+  <div *ngIf="filter.priority !== 'all' || filter.label !== 'all' || filter.dueDate !== 'all'" class="ion-padding-start ion-padding-end">
+    <ion-chip>
+      <ion-label *ngIf="filter.priority !== 'all'">Priority: {{ filter.priority | titlecase }}</ion-label>
+      <ion-label *ngIf="filter.label !== 'all'">Label: {{ filter.label }}</ion-label>
+      <ion-label *ngIf="filter.dueDate === 'today'">Due: Today</ion-label>
+      <ion-label *ngIf="filter.dueDate === 'overdue'">Overdue</ion-label>
+      <ion-label *ngIf="filter.dueDate === 'this-week'">Due: This Week</ion-label>
+      
+      <ion-icon 
+        name="close-circle" 
+        (click)="this.taskService.updateFilterCriteria({ priority: 'all', label: 'all', dueDate: 'all' })">
+      </ion-icon>
+    </ion-chip>
+  </div>
+</ng-container>
+
+
+
+<ion-content [fullscreen]="true">
+  <!-- Active Filter Chip: This stays the same -->
+  <div class="ion-padding-horizontal" *ngIf="(activeFilter$ | async) as filter">
+    <ion-chip *ngIf="filter.priority !== 'all' || filter.label !== 'all' || filter.dueDate !== 'all'">
+      <ion-label>Filtered</ion-label>
+      <ion-icon name="close-circle-outline"
+        (click)="this.taskService.updateFilterCriteria({ priority: 'all', label: 'all', dueDate: 'all' })"></ion-icon>
+    </ion-chip>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <!-- Column 1: Not Started -->
+        <ion-col size="12" size-md="4">
+          <ion-item-divider color="light"><ion-label>Not Started</ion-label></ion-item-divider>
+          <div *ngIf="(notStartedTasks$ | async) as tasks">
+            <app-task-item *ngFor="let task of tasks" 
+              [task]="task" 
+              (edit)="openTaskModal($event)"
+              (delete)="onDeleteTask( $event)">
+            </app-task-item>
+            <ion-text *ngIf="tasks.length === 0" class="ion-padding-start">
+              <p>No tasks here!</p>
+            </ion-text>
+          </div>
+        </ion-col>
+
+
+      <!-- Column 2: In Progress -->
+        <ion-col size="12" size-md="4">
+          <ion-item-divider color="light"><ion-label>In Progress</ion-label></ion-item-divider>
+          <div *ngIf="(startedTasks$  | async) as tasks">
+            <app-task-item *ngFor="let task of tasks" 
+              [task]="task" 
+              (edit)="openTaskModal($event)"
+              (delete)="onDeleteTask( $event)">
+            </app-task-item>
+            <ion-text *ngIf="tasks.length === 0" class="ion-padding-start">
+              <p>No tasks here!</p>
+            </ion-text>
+          </div>
+        </ion-col>
+
+      <!-- Column 3: Complete -->
+      <ion-col size="12" size-md="4">
+        <ion-item-divider color="light"><ion-label>Complete</ion-label></ion-item-divider>
+        <div *ngIf="(completeTasks$  | async) as tasks">
+          <app-task-item *ngFor="let task of tasks" 
+            [task]="task" 
+            (edit)="openTaskModal($event)"
+            (delete)="onDeleteTask($event)">
+          </app-task-item>
+          <ion-text *ngIf="tasks.length === 0" class="ion-padding-start">
+            <p>No tasks here!</p>
+          </ion-text>
+        </div>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="openTaskModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>
+
+
