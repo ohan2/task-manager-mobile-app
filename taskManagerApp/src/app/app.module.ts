@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { provideHttpClient } from '@angular/common/http';
+
 
 @NgModule({
   imports: [
@@ -11,6 +13,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    provideHttpClient() 
   ],
   // No declarations or bootstrap array needed here for a standalone AppComponent
 })

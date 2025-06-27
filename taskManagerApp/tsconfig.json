@@ -1,4 +1,5 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
+
+
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -16,7 +17,7 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2022",
+    "target": "es2015",
     "module": "es2020",
     "lib": [
       "es2020", 

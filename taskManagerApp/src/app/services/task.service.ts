@@ -12,7 +12,7 @@ import { LocalNotifications } from '@capacitor/local-notifications';
 })
 export class TaskService {
   // --- NEW: API Configuration ---
-  private apiUrl = '/api/tasks';
+  private apiUrl = 'http://localhost:3000/tasks';
 
   // --- MODIFIED: This is now a CACHE of the server data, starting empty ---
   private tasksSubject = new BehaviorSubject<Task[]>([]);
@@ -164,3 +164,4 @@ export class TaskService {
     return Math.abs(hash);
   }
 }
+

@@ -1,4 +1,12 @@
 /**
+ * Polyfill for `globalThis`.
+ * Required for older Android WebViews that don't support it natively.
+ */
+if (typeof globalThis === 'undefined') {
+  (window as any).globalThis = window;
+}
+
+/**
  * This file includes polyfills needed by Angular and is loaded before the app.
  * You can add your own extra polyfills to this file.
  *
